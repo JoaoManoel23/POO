@@ -1,3 +1,4 @@
+using System.Globalization;
 using System;
 using SistemaDeCobranca.Services;
 
@@ -7,6 +8,8 @@ namespace SistemaDeCobranca.Controllers
     {
         
         ClientService service = new ClientService();
+        CobrancaService serviceCobra = new CobrancaService();
+
         public void Menu()
         {
 
@@ -17,6 +20,7 @@ namespace SistemaDeCobranca.Controllers
                 Console.WriteLine("Digite 2 para listar os clientes");
                 Console.WriteLine("Digite 3 para excluir um cliente");
                 Console.WriteLine("Digite 4 para editar um cliente");
+                Console.WriteLine("Digite 5 para adiconar uma cobrança ao cliente");
 
                 Console.WriteLine("Digite 0 para sair da aplicação");
                 op = Console.ReadLine();
@@ -81,6 +85,42 @@ namespace SistemaDeCobranca.Controllers
 
                         var edit = service.UpdateClient(idClienteEditInt, novoNome, novoFone);
                         Console.WriteLine(edit);
+                        break;
+                    case "5":
+                        Console.WriteLine("Digite o id do cliente");
+                        todosClientes = service.ListClients();
+                        if(todosClientes.Contains("vazia"))
+                        {
+                            Console.WriteLine(todosClientes);
+                            Menu();
+                        }
+                        else
+                        {
+                            Console.WriteLine(todosClientes);
+                        }
+                        string idClienteCobra = Console.ReadLine();
+                        int idClienteCobraInt = Convert.ToInt32(idClienteCobra);
+
+                        Console.WriteLine("Digite a data de emissão da cobrança");
+                        string dataEmi = Console.ReadLine().Trim();
+                        DateTime dataEmid = Convert.ToDateTime(dataEmi);
+
+                        Console.WriteLine("Digite a data de vencimento da cobrança");
+                        string dataVenc = Console.ReadLine().Trim();
+                        DateTime dataVencd =  Convert.ToDateTime(dataVenc);
+
+                        Console.WriteLine("Digite o valor da cobrança");
+                        string valor = Console.ReadLine().Trim();
+                        int valorInt = Convert.ToInt32(valor);
+
+                        Console.WriteLine("Digite a data de pagamento da cobrança");
+                        string dataPag = Console.ReadLine().Trim();
+                        DateTime dataPagd = Convert.ToDateTime(dataPag);
+
+                        var cobra = serviceCobra.CreateCobra(dataEmid,dataVencd,valorInt,dataPagd,idClienteCobraInt);
+                        Console.WriteLine(cobra);
+                        break;
+                    case "6":
                         break;
                     default:
                         Console.WriteLine("inválido");
