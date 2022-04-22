@@ -21,7 +21,6 @@ namespace SistemaDeCobranca.Controllers
                 Console.WriteLine("Digite 3 para excluir um cliente");
                 Console.WriteLine("Digite 4 para editar um cliente");
                 Console.WriteLine("Digite 5 para adicionar uma cobrança ao cliente");
-                Console.WriteLine("Digite 6 para listar cobranças");
 
                 Console.WriteLine("Digite 0 para sair da aplicação");
                 op = Console.ReadLine();
@@ -120,9 +119,6 @@ namespace SistemaDeCobranca.Controllers
 
                         var cobra = serviceCobra.CreateCobra(dataEmid,dataVencd,valorInt,dataPagd,idClienteCobraInt);
                         Console.WriteLine(cobra);
-                        break;
-                    case "6":
-                        Console.WriteLine(serviceCobra.listCobranca());
                         break;
                     default:
                         Console.WriteLine("inválido");
